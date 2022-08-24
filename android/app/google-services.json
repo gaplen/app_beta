@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "795404367747",
+    "project_id": "nuevoproyecto-9fb14",
+    "storage_bucket": "nuevoproyecto-9fb14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795404367747:android:5238a739d3cd591da368b6",
+        "android_client_info": {
+          "package_name": "com.example.app_beta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795404367747-bp5hihd3o30udv6dhmao7ep8tcsksdvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkKukqI_GMjxgzmNmCZMVUIRIZ5-fqJOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795404367747-bp5hihd3o30udv6dhmao7ep8tcsksdvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795404367747:android:ad2d104da7157419a368b6",
+        "android_client_info": {
+          "package_name": "com.example.app_user_beta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795404367747-likf0ocb4gbgrppsbcatvmgmbig1be88.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_user_beta",
+            "certificate_hash": "ad24db66717450049378389563c28b6d78d4116d"
+          }
+        },
+        {
+          "client_id": "795404367747-bp5hihd3o30udv6dhmao7ep8tcsksdvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkKukqI_GMjxgzmNmCZMVUIRIZ5-fqJOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795404367747-bp5hihd3o30udv6dhmao7ep8tcsksdvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
