@@ -131,6 +131,11 @@ class ClientUpdateController {
   void back() {
     Navigator.pop(context);
   }
+  
+
+   void goToGivePet() {
+    Navigator.pushNamed(context, 'client/adoptpets');
+  }
 
 
 }

@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:app_beta/src/pages/client/adoptpets/adop_pets_controller_page.dart';
+import 'package:app_beta/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class PetsPage extends StatefulWidget {
   PetsPage({Key key}) : super(key: key);
@@ -8,16 +13,45 @@ class PetsPage extends StatefulWidget {
 }
 
 class _PetsPageState extends State<PetsPage> {
+  GivePetController _con = new GivePetController();
+
   @override
+  void initState() {
+    super.initState();
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      _con.init(context, refresh);
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Dar en adopcion a tu mascota'),
+      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _questionPets(),
-              _buttonNext(),
+              _textFieldName(),
+              _textFielSex(),
+              _textFieldEdad(),
+              _textFieldPeso(),
+              _textFieldRaza(),
+              _textFieldDescription(),
+              Container(
+              height: 100,
+              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _cardImage(_con.imageFile1, 1),
+                  _cardImage(_con.imageFile2, 2),
+                  _cardImage(_con.imageFile3, 3),
+                ],
+              ),
+            ),
+            _buttonCreate(),
             ],
           ),
         ),
@@ -25,220 +59,205 @@ class _PetsPageState extends State<PetsPage> {
     );
   }
 
-  Widget _questionPets() {
+  Widget _textFieldName() {
     return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 20),
-            Container(
-              height: 110,
-              width: 300,
-              // color: Colors.purple,
-              child: Text(
-                'Antes de adoptar, responda con sinceridad las siguientes preguntas.',
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            Container(
-              child: Text('Cuento con el dinero para cubrir sus necesidades?'),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Radio(value: 0, groupValue: 0, onChanged: null),
-                SizedBox(
-                  width: 100,
-                ),
-                Radio(value: 0, groupValue: 0, onChanged: null)
-              ],
-            ),
-            SizedBox(height: 20),
-            Container(
-              child: Text('Tengo tiempo para mi nuevo amigo?.'),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Radio(value: 0, groupValue: 0, onChanged: null),
-                SizedBox(
-                  width: 100,
-                ),
-                Radio(value: 0, groupValue: 0, onChanged: null)
-              ],
-            ),
-            SizedBox(height: 20),
-            Container(
-              child:
-                  Text('Tengo un espacio en casa y paciencia para educarlo?'),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Radio(value: 0, groupValue: 0, onChanged: null),
-                SizedBox(
-                  width: 100,
-                ),
-                Radio(value: 0, groupValue: 0, onChanged: null)
-              ],
-            ),
-            SizedBox(height: 20),
-            Container(
-              child: Text('Tiene alguna otra mascota en casa?.'),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Radio(value: 0, groupValue: 0, onChanged: null),
-                SizedBox(
-                  width: 100,
-                ),
-                Radio(value: 0, groupValue: 0, onChanged: null)
-              ],
-            ),
-            SizedBox(height: 20),
-            Container(
-              child: Text(
-                'Esta consiente de la responsabilidad que implica tener un nueva mascota a su cargo.',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Radio(value: 0, groupValue: 0, onChanged: null),
-                SizedBox(
-                  width: 100,
-                ),
-                Radio(value: 0, groupValue: 0, onChanged: null)
-              ],
-            ),
-          ],
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.nameController,
+        maxLines: 1,
+        maxLength: 180,
+        decoration: InputDecoration(
+            hintText: 'Nombre de la mascota',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            suffixIcon: Icon(
+              Icons.pets,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget _textFielSex() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.petsexController,
+        maxLines: 1,
+        maxLength: 180,
+        decoration: InputDecoration(
+            hintText: 'Sexo de la mascota',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            suffixIcon: Icon(
+              Icons.pets,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget _textFieldPeso() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.petweightController,
+        maxLines: 1,
+        maxLength: 180,
+        decoration: InputDecoration(
+            hintText: 'Peso de la mascota',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            suffixIcon: Icon(
+              Icons.pets,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget _textFieldEdad() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.petageController,
+        maxLines: 1,
+        maxLength: 180,
+        decoration: InputDecoration(
+            hintText: 'Edad de la mascota',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            suffixIcon: Icon(
+              Icons.pets,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget _textFieldRaza() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.petbreedController,
+        maxLines: 1,
+        maxLength: 180,
+        decoration: InputDecoration(
+            hintText: 'raza de la mascota',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            suffixIcon: Icon(
+              Icons.pets,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget _textFieldDescription() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.descriptionController,
+        maxLines: 3,
+        maxLength: 255,
+        decoration: InputDecoration(
+          hintText: 'Descripcion de la Mascota',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(15),
+          hintStyle: TextStyle(color: MyColors.primaryColorDark),
+          suffixIcon: Icon(
+            Icons.description,
+            color: MyColors.primaryColor,
+          ),
         ),
       ),
     );
   }
 
+   Widget _cardImage(File imageFile, int numberFile) {
+    return GestureDetector(
+      onTap: () {
+        _con.showAlertDialog(numberFile);
+      },
+      child: imageFile != null
+      ? Card(
+        elevation: 3.0,
+        child: Container(
+          height: 100,
+          width: MediaQuery.of(context).size.width * 0.26,
+          child: Image.file(
+            imageFile,
+            fit: BoxFit.cover,
+          ),
+        ),
+      )
+      : Card(
+        elevation: 3.0,
+        child: Container(
+          height: 140,
+          width: MediaQuery.of(context).size.width * 0.26,
+          child: Image(
+            image: AssetImage('assets/img/no-image.png'),
+          ),
+        ),
+      ),
+    );
+  }
 
-
-  Widget _buttonNext() {
+  Widget _buttonCreate() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
+      height: 50,
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: ElevatedButton(
-        onPressed: () {
-          showAlertDialog(context);
-          // Navigator.pushNamed(context, 'client/dialogpage');
-        },
-        // aqui va mandar al cuestionario
-        // onPressed: _con.addToBag,
+        onPressed: _con.createProduct,
+        child: Text('Crear producto'),
         style: ElevatedButton.styleFrom(
-            primary: Colors.blue.shade100,
-            padding: EdgeInsets.symmetric(vertical: 5),
+            primary: MyColors.primaryColor,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: 50,
-                alignment: Alignment.center,
-                child: Text(
-                  'Adoptame',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
+                borderRadius: BorderRadius.circular(30)
             ),
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: Container(
-            //     margin: EdgeInsets.only(left: 80, top: 9),
-            //     height: 30,
-            //     child: Icon(
-            //       Icons.check_circle,
-            //       color: Colors.green,
-            //       size: 30,
-            //     ),
-            //   ),
-            // )
-          ],
+            padding: EdgeInsets.symmetric(vertical: 15)
         ),
       ),
     );
   }
 
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = TextButton(
-      child: Container(
-        // color: Colors.purple,
-        child: Column(
-          children: [
-            Text("OK"),
-          ],
-        ),
-      ),
-      onPressed: () {
-        Navigator.pushNamed(context, 'client/products/list');
-      },
-    );
 
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Container(
-        height: 200,
-        width: 200,
-        // color: Colors.green,
-        child: Column(
-          children: [
-            Center(
-              child: Container(
-                height: 150,
-                width: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(500),
-                  color: Colors.purple
-                ),
-              ),
-            )
-           
-          ],
-        ),
-      ),
-      content: Container(
-        height: 50,
-        // color: Colors.red,
-        child: Column(
-          children: [
-            Text("!Gracias por tus respuestas!.", textAlign: TextAlign.center,),
-            Text('Esta pequeña encuesta sera entraga al dueño de la mascota, que se esta dando en adopcion', textAlign: TextAlign.center,style: TextStyle(fontSize: 10,),)
-          ],
-        ),
-      ),
-      actions: [
-        okButton,
-      ],
-    );
 
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
+
+
+  void refresh() {
+    setState(() {}); // CTRL + S
   }
-
-
 }

@@ -27,32 +27,37 @@ class _ClientUpdatePageState extends State<ClientUpdatePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil'),
+        actions: [
+          Container(
+            padding: EdgeInsets.only(right: 5),
+            child: IconButton(
+              onPressed: _con.goToGivePet,
+              icon: Icon(Icons.pets),
+            ),
+          ),
+        ],
       ),
       body: Container(
-        // color: Colors.purple,
-        width: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 50),
-              _imageUser(),
-              SizedBox(height: 30),
-              _textFieldName(),
-              _textFieldLastName(),
-              _textFieldPhone(),
-              _textFielAlias(),
-              textFielCiudad(),
-              textFielEstado(),
-
-            ],
-          ),
-        )
-      ),
+          // color: Colors.purple,
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 50),
+                _imageUser(),
+                SizedBox(height: 30),
+                _textFieldName(),
+                _textFieldLastName(),
+                _textFieldPhone(),
+                _textFielAlias(),
+                textFielCiudad(),
+                textFielEstado(),
+              ],
+            ),
+          )),
       bottomNavigationBar: _buttonLogin(),
     );
   }
-
-
 
   Widget _imageUser() {
     return GestureDetector(
@@ -62,7 +67,7 @@ class _ClientUpdatePageState extends State<ClientUpdatePage> {
             ? FileImage(_con.imageFile)
             : _con.user?.image != null
                 ? NetworkImage(_con.user?.image)
-                : AssetImage('assets/img/user_profile_2.png'),
+                : AssetImage('assets/img/no-image.png'),
         radius: 40,
         backgroundColor: Colors.grey[200],
       ),

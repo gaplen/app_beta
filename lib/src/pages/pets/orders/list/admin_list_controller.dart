@@ -67,4 +67,9 @@ class AdminOrdersListController {
     Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
   }
 
+  void goToproductDonationCreate() {
+    Navigator.pushNamed(context, 'pets/donations/create');
+  }
+
+
 }

@@ -1,11 +1,7 @@
 import 'package:app_beta/src/models/address.dart';
-import 'package:app_beta/src/models/order.dart';
-import 'package:app_beta/src/models/product.dart';
-import 'package:app_beta/src/models/response_api.dart';
 import 'package:app_beta/src/models/user.dart';
 import 'package:app_beta/src/provider/address_provider.dart';
 import 'package:app_beta/src/provider/orders_provider.dart';
-import 'package:app_beta/src/utils/my_snackbar.dart';
 import 'package:app_beta/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';

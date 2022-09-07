@@ -1,12 +1,14 @@
 import 'package:app_beta/src/pages/client/address/create/client_address_create_page.dart';
 import 'package:app_beta/src/pages/client/address/list/client_address_list_page.dart';
 import 'package:app_beta/src/pages/client/adoptpets/adopt_pets.dart';
+import 'package:app_beta/src/pages/client/donations/donations_page.dart';
 import 'package:app_beta/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:app_beta/src/pages/client/products/favorite/client_favorite_create_page.dart';
 import 'package:app_beta/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:app_beta/src/pages/client/update/client_update_page.dart';
 import 'package:app_beta/src/pages/login/login_page.dart';
 import 'package:app_beta/src/pages/pets/categories/create/pets_categories_create_page.dart';
+import 'package:app_beta/src/pages/pets/donations/create/donations_products_create_page.dart';
 import 'package:app_beta/src/pages/pets/orders/list/admin_list_page.dart';
 import 'package:app_beta/src/pages/pets/orders/list/pets_orders_list_page.dart';
 import 'package:app_beta/src/pages/pets/products/create/pets_products_create_page.dart';
@@ -81,13 +83,18 @@ class _MyAppState extends State<MyApp> {
         'pets/categories/create' : (BuildContext context) => PetsCategoriesCreatePage(),
         'pets/products/create' : (BuildContext context) => RestaurantProductsCreatePage(),
       
-
+        'client/donations/donatepage': (BuildContext context) => ClientDontationsPage(),
         
         'pets/order/list' : (BuildContext context) => PetsOrdersListPage(),
 
         
+        'pets/donations/create' : (BuildContext context) => DonationsProductsCreatePage(),
+
+        
         'client/address/create' : (BuildContext context) => ClientAddressCreatePage(),
         'client/address/list' : (BuildContext context) => ClientAddressListPage(),
+        
+
         
         
         // 'client/orders/create' : (BuildContext context) => ClientOrdersCreatePage(),

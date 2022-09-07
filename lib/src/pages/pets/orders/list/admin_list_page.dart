@@ -112,12 +112,12 @@ class _AdminOrdersListPageState extends State<AdminOrdersListPage> {
                   SizedBox(width: 10),
                   SizedBox(width: 10),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: _con.goToproductDonationCreate,
                     child: Container(
                       height: 150,
                       width: 150,
                       color: Colors.red,
-                      child: Center(child: Text('Otros')),
+                      child: Center(child: Text('product donacions')),
                     ),
                   ),
                 ],

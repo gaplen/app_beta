@@ -1,5 +1,3 @@
-
-
 import 'package:app_beta/src/models/category.dart';
 import 'package:app_beta/src/models/product.dart';
 import 'package:app_beta/src/pages/client/products/list/client_products_list_controller.dart';
@@ -11,9 +9,7 @@ import 'package:flutter/scheduler.dart';
 class ClientProductsListPage extends StatefulWidget {
   Product product;
 
-  ClientProductsListPage({
-    Key key,
-  }) : super(key: key);
+  ClientProductsListPage({Key key}) : super(key: key);
 
   @override
   _ClientProductsListPageState createState() => _ClientProductsListPageState();
@@ -32,8 +28,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
   }
 
   @override
-  Widget build(BuildContext context,) {
-    
+  Widget build(BuildContext context) {
     return DefaultTabController(
       length: _con.categories?.length,
       child: Scaffold(
@@ -60,7 +55,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             ),
           ),
         ),
-       
+        floatingActionButton: _buttonFlt(),
       ),
     );
   }
@@ -83,24 +78,23 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
               return Row(
                 children: [
                   Container(
-                    height:35,
+                    height: 35,
                     width: 40,
                     decoration: BoxDecoration(
                       // color: Colors.purple,
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    child:
-                    FadeInImage(
-                      
+                    child: FadeInImage(
                       image: _con.product?.image2 != null
                           ? NetworkImage(_con.product.image2)
-                          : AssetImage('assets/img/dogg.png',),
-                        
+                          : AssetImage(
+                              'assets/img/dogg.png',
+                            ),
+
                       // fit: BoxFit.cover,
                       fadeInDuration: Duration(milliseconds: 50),
                       placeholder: AssetImage('assets/img/dogg.png'),
                     ),
-                    
                   ),
                   Container(
                     height: 50,
@@ -123,11 +117,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
         ),
       ),
     );
-    
   }
 
- 
- Widget cardPanel() {
+  Widget cardPanel() {
     return Container(
       // color: Colors.red,
       height: MediaQuery.of(context).size.height * 1,
@@ -163,16 +155,16 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
   }
 
   Widget imgCategory() {
-    return  CircleAvatar(
-                    child: FadeInImage(
-                      image: _con.product?.image1 != null
-                          ? NetworkImage(_con.category.image)
-                          : AssetImage('assets/img/no-image.png'),
-                      fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png'),
-                    ),
-                  );
+    return CircleAvatar(
+      child: FadeInImage(
+        image: _con.product?.image1 != null
+            ? NetworkImage(_con.category.image)
+            : AssetImage('assets/img/no-image.png'),
+        fit: BoxFit.cover,
+        fadeInDuration: Duration(milliseconds: 50),
+        placeholder: AssetImage('assets/img/no-image.png'),
+      ),
+    );
   }
 
   Widget searh() {
@@ -228,7 +220,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
-                   
                       image: DecorationImage(
                           image: AssetImage(
                             'assets/img/iconpaw.png',
@@ -292,8 +283,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                 ),
               ],
             ),
-
-           
           ],
         ),
       ),
@@ -465,11 +454,11 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             title: Text('Favoritos'),
             trailing: Icon(Icons.favorite),
           ),
-          // ListTile(
-          //   onTap: () {},
-          //   title: Text('Donaciones'),
-          //   trailing: Icon(Icons.money),
-          // ),
+          ListTile(
+            onTap: _con.goToDonationPage,
+            title: Text('Donaciones'),
+            trailing: Icon(Icons.money),
+          ),
 
           // ListTile(
           //   onTap: _con.goToOrdersList,
@@ -587,6 +576,16 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             style: TextStyle(fontSize: 15),
           ),
         ));
+  }
+
+  _buttonFlt() {
+    return FloatingActionButton(
+      focusColor: Colors.pink,
+      splashColor: Colors.red,
+      backgroundColor: Colors.black,
+      child: Icon(Icons.pets_outlined),
+      onPressed: _con.goToGivePet,
+    );
   }
 
   void refresh() {

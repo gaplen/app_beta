@@ -1,31 +1,31 @@
 import 'dart:async';
 import 'package:app_beta/src/models/category.dart';
+import 'package:app_beta/src/models/donations.dart';
 import 'package:app_beta/src/models/product.dart';
 import 'package:app_beta/src/models/user.dart';
 import 'package:app_beta/src/pages/client/products/detail/client_products_detail_page.dart';
 import 'package:app_beta/src/provider/categories_provider.dart';
-import 'package:app_beta/src/provider/products_provider.dart';
+import 'package:app_beta/src/provider/donations_provider.dart';
 import 'package:app_beta/src/provider/push_notifications_provider.dart';
 import 'package:app_beta/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class ClientProductsListController {
+class ClientDonationsController {
 
   BuildContext context;
   Function refresh;
-  Product product;
+  Donations donations;
   Category category;
   int counter = 1;
   SharedPref _sharedPref = new SharedPref();
-  List<Product> selectedProducts = [];
-  List<Product> selectedFavorite = [];
+  List<Donations> selectedProducts = [];
   
   GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
   User user;
   CategoriesProvider _categoriesProvider = new CategoriesProvider();
-  PetsProvider _productsProvider = new PetsProvider();
+  DonationsProvider _donationsProvider = new DonationsProvider();
   List<Category> categories = [];
   Timer searchOnStoppedTyping;
   String productName = '';
@@ -34,16 +34,15 @@ class ClientProductsListController {
   
 
 
-  Future init(BuildContext context, Function refresh, Product product) async {
+  Future init(BuildContext context, Function refresh, Donations donations) async {
     this.context = context;
     this.refresh = refresh;
-    this.product = product;
+    this.donations = donations;
     user = User.fromJson(await _sharedPref.read('user'));
     _categoriesProvider.init(context, user);
-    _productsProvider.init(context, user, product);
-    selectedProducts = Product.fromJsonList(await _sharedPref.read('order')).toList;
+    _donationsProvider.init(context, user, donations);
+    selectedProducts = Donations.fromJsonList(await _sharedPref.read('order')).toList;
     getCategories();
-    selectedProducts = Product.fromJsonList(await _sharedPref.read('favore')).toList;
     getCategories();
     refresh();
   }
@@ -63,32 +62,13 @@ class ClientProductsListController {
     });
   }
 
-  Future<bool> onLikeButtonTapped(bool isLiked) async{
-    int index = selectedFavorite.indexWhere((p) => p.id == product.id);
-     product = this.product;
-      product.isFavorite = isLiked;
-      _sharedPref.save('favorite', selectedFavorite);
-      Fluttertoast.showToast(msg: 'agregado  a favoritos');
 
-      if (index == -1) {
-      // PRODUCTOS SELECCIONADOS NO EXISTE ESE PRODUCTO
-      if (product.quantity == null) {
-        product.quantity = 1;
-      }
-
-      selectedFavorite.add(product);
-    }
-    
-
-    return !isLiked;
-  }
-
-  Future<List<Product>> getProducts(String idCategory, String productName) async {
+  Future<List<Donations>> getProducts(String idCategory, String productName) async {
     if (productName.isEmpty) {
-      return await _productsProvider.getByCategory(idCategory);
+      return await _donationsProvider.getByCategory(idCategory);
     }
     else {
-      return await _productsProvider.getByCategoryAndProductName(idCategory, productName);
+      return await _donationsProvider.getByCategoryAndProductName(idCategory, productName);
     }
   }
 
@@ -98,24 +78,21 @@ class ClientProductsListController {
   }
 
   void openBottomSheet(Product product) {
-    showBarModalBottomSheet(
-      expand: true,
-
-
+    showMaterialModalBottomSheet(
         context: context,
         builder: (context) => ClientProductsDetailPage(product: product)
     ); 
   }
 
   void addToBag() {
-    int index = selectedProducts.indexWhere((p) => p.id == product.id);
+    int index = selectedProducts.indexWhere((p) => p.id == donations.id);
 
     if (index == -1) { // PRODUCTOS SELECCIONADOS NO EXISTE ESE PRODUCTO
-      if (product.quantity == null) {
-        product.quantity = 1;
+      if (donations.quantity == null) {
+        donations.quantity = 1;
       }
 
-      selectedProducts.add(product);
+      selectedProducts.add(donations);
     }
     else {
       selectedProducts[index].quantity = counter;
@@ -165,6 +142,85 @@ class ClientProductsListController {
 void goToDonationPage() {
     Navigator.pushNamed(context, 'client/donations/donatepage');
   }
+
+void okBtn(){
+  myshowAlertDialog(context);
+  Navigator.pop(context);
+}
+
+
+
+myshowAlertDialog(BuildContext context) {
+  // set up the button
+  Widget okButton = TextButton(
+    child: Container(
+      // color: Colors.purple,
+      child: Column(
+        children: [
+          Text("OK"),
+        ],
+      ),
+    ),
+    onPressed: () {
+      // Navigator.pop(context);
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Container(
+      height: 200,
+      width: 200,
+      // color: Colors.green,
+      child: Column(
+        children: [
+          Center(
+            child: Container(
+              height: 150,
+              width: 150,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(500),
+                  color: Colors.purple),
+            ),
+          )
+        ],
+      ),
+    ),
+    content: Container(
+      height: 50,
+      // color: Colors.red,
+      child: Column(
+        children: [
+          Text(
+            "!Gracias por tus respuestas!.",
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            'Esta pequeña encuesta sera entraga al dueño de la mascota, que se esta dando en adopcion',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 10,
+            ),
+          )
+        ],
+      ),
+    ),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+
 
 
 
