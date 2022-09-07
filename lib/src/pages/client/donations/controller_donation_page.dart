@@ -140,12 +140,18 @@ class ClientDonationsController {
 
 
 void goToDonationPage() {
-    Navigator.pushNamed(context, 'client/donations/donatepage');
+    Navigator.pushNamed(context, 'client/orders/create');
   }
+
+void btnDonation(){
+  myshowAlertDialog(context);
+  
+}
 
 void okBtn(){
   myshowAlertDialog(context);
   Navigator.pop(context);
+  
 }
 
 
@@ -192,17 +198,7 @@ myshowAlertDialog(BuildContext context) {
       // color: Colors.red,
       child: Column(
         children: [
-          Text(
-            "!Gracias por tus respuestas!.",
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            'Esta pequeña encuesta sera entraga al dueño de la mascota, que se esta dando en adopcion',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 10,
-            ),
-          )
+         
         ],
       ),
     ),

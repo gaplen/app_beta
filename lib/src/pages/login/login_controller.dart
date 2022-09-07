@@ -72,4 +72,9 @@ class LoginController {
 
   }
 
+  void goToLostPassword() {
+     Navigator.pushNamed(context, 'lostPassword');
+  }
+
+
 }

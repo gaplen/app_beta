@@ -48,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
                   _textFieldEmail(),
                   _textFieldPassword(),
                   _buttonLogin(),
-                  _textDontHaveAccount(),   
+                  _textDontHaveAccount(), 
+                  _contrasenaOlvidada(),  
                 ],
               ),
             ),
@@ -111,6 +112,20 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ],
+    );
+  }
+
+ Widget _contrasenaOlvidada() {
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      child: GestureDetector(
+        onTap: _con.goToLostPassword,
+        child: Text(
+          '¿Olvidó su contraseña?',
+          style: TextStyle(
+              fontWeight: FontWeight.normal, color: Colors.black, fontSize: 17),
+        ),
+      ),
     );
   }
 

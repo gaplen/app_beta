@@ -59,7 +59,7 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
                   ),
                 ),
                 cardPanel(),
-                cardPanel(),
+                // cardPanel(),
                
               ],
             ),
@@ -79,7 +79,7 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
 
         Container(
           color: Colors.red,
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: MediaQuery.of(context).size.height * 0.5,
           width: double.infinity,
           child: TabBarView(
             children: _con.categories.map((Category category) {
@@ -116,9 +116,7 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
   Widget _cardProduct(Donations donations) {
     // final _random = Random();
     return GestureDetector(
-      onTap: () {
-        // _con.openBottomSheet(donations);
-      },
+      onTap: _con.goToDonationPage,
       child: Container(
         // color: Colors.red,
         child: Column(
@@ -146,7 +144,7 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
                   top: MediaQuery.of(context).size.width * 0.1,
                   left: MediaQuery.of(context).size.height * 0.035,
                   child: Container(
-                    // height: 150,
+                    // height: 150,pur
                     // width: MediaQuery.of(context).size.width * 0.30,
                     // color: Colors.purple,
 

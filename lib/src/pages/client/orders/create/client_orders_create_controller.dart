@@ -1,4 +1,4 @@
-import 'package:app_beta/src/models/product.dart';
+import 'package:app_beta/src/models/donations.dart';
 import 'package:app_beta/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 
@@ -7,21 +7,21 @@ class ClientOrdersCreateController {
   BuildContext context;
   Function refresh;
 
-  Product product;
+  Donations donations;
 
   int counter = 1;
   double productPrice;
 
   SharedPref _sharedPref = new SharedPref();
 
-  List<Product> selectedProducts = [];
+  List<Donations> selectedProducts = [];
   double total = 0;
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
 
-    selectedProducts = Product.fromJsonList(await _sharedPref.read('order')).toList;
+    selectedProducts = Donations.fromJsonList(await _sharedPref.read('order')).toList;
 
     getTotal();
     refresh();
@@ -29,30 +29,30 @@ class ClientOrdersCreateController {
 
   void getTotal() {
     total = 0;
-    selectedProducts.forEach((product) {
-      total = total + (product.quantity * product.price);
+    selectedProducts.forEach((donations) {
+      total = total + (donations.quantity * donations.price);
     });
     refresh();
   }
 
-  void addItem(Product product) {
-    int index = selectedProducts.indexWhere((p) => p.id == product.id);
+  void addItem(Donations donations) {
+    int index = selectedProducts.indexWhere((p) => p.id == donations.id);
     selectedProducts[index].quantity = selectedProducts[index].quantity + 1;
     _sharedPref.save('order', selectedProducts);
     getTotal();
   }
 
-  void removeItem(Product product) {
-    if (product.quantity > 1) {
-      int index = selectedProducts.indexWhere((p) => p.id == product.id);
+  void removeItem(Donations donations) {
+    if (donations.quantity > 1) {
+      int index = selectedProducts.indexWhere((p) => p.id == donations.id);
       selectedProducts[index].quantity = selectedProducts[index].quantity - 1;
       _sharedPref.save('order', selectedProducts);
       getTotal();
     }
   }
 
-  void deleteItem(Product product) {
-    selectedProducts.removeWhere((p) => p.id == product.id);
+  void deleteItem(Donations donations) {
+    selectedProducts.removeWhere((p) => p.id == donations.id);
     _sharedPref.save('order', selectedProducts);
     getTotal();
   }

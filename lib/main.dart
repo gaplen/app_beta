@@ -7,6 +7,7 @@ import 'package:app_beta/src/pages/client/products/favorite/client_favorite_crea
 import 'package:app_beta/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:app_beta/src/pages/client/update/client_update_page.dart';
 import 'package:app_beta/src/pages/login/login_page.dart';
+import 'package:app_beta/src/pages/lostpassword/lost_password_page.dart';
 import 'package:app_beta/src/pages/pets/categories/create/pets_categories_create_page.dart';
 import 'package:app_beta/src/pages/pets/donations/create/donations_products_create_page.dart';
 import 'package:app_beta/src/pages/pets/orders/list/admin_list_page.dart';
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'login' : (BuildContext context) => LoginPage(),
         'register' : (BuildContext context) => RegisterPage(),
+        'lostPassword' : (BuildContext contex ) => LostPasswordPage(),
         'roles' : (BuildContext context) => RolesPage(),
         'client/products/list' : (BuildContext context) => ClientProductsListPage(),
         'client/orders/create': (BuildContext context) => ClientOrdersCreatePage(),
@@ -95,7 +97,8 @@ class _MyAppState extends State<MyApp> {
         'client/address/list' : (BuildContext context) => ClientAddressListPage(),
         
 
-        
+
+  
         
         // 'client/orders/create' : (BuildContext context) => ClientOrdersCreatePage(),
       },
