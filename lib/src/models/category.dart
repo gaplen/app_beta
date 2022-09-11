@@ -9,6 +9,8 @@ class Category {
   String id;
   String name;
   String image;
+  String image2;
+  String image3;
   String description;
   List<Category> toList = [];
 
@@ -16,6 +18,8 @@ class Category {
     this.id,
     this.name,
     this.image,
+    this.image2,
+    this.image3,
     this.description,
   });
 
@@ -25,6 +29,8 @@ class Category {
     id: json["id"] is int ? json["id"].toString() : json['id'],
     name: json["name"],
     image: json["image"],
+    image2: json["image2"],
+    image3: json ["image3"],
     description: json["description"],
   );
 
@@ -40,6 +46,8 @@ class Category {
     "id": id,
     "name": name,
     "image": image,
+    "image2": image2,
+    "image3": image3,
     "description": description,
   };
 }

@@ -11,7 +11,7 @@ class PetsCategoriesCreatePage extends StatefulWidget {
   Category category;
 
   PetsCategoriesCreatePage({Key key,}) : super(key: key);
-
+ 
   @override
   _PetsCategoriesCreatePageState createState() =>
       _PetsCategoriesCreatePageState();
@@ -39,6 +39,7 @@ class _PetsCategoriesCreatePageState extends State<PetsCategoriesCreatePage> {
           children: [
             SizedBox(height: 30),
             _textImg(),
+            _imgCategory(),
             // _txtImageurl(),
             _textFieldName(),
             _textFieldDescription()
@@ -76,6 +77,24 @@ class _PetsCategoriesCreatePageState extends State<PetsCategoriesCreatePage> {
               color: MyColors.primaryColor,
             )),
       ),
+    );
+  }
+
+Widget _imgCategory() {
+    return GestureDetector(
+      onTap: _con.showAlertDialog,
+      child: Container(
+                    height: 60,
+                    margin: EdgeInsets.only(top: 10),
+                    child: FadeInImage(
+                      image: _con.user?.image != null
+                          ? NetworkImage(_con.user?.image)
+                          : AssetImage('assets/img/no-image.png'),
+                      fit: BoxFit.contain,
+                      fadeInDuration: Duration(milliseconds: 50),
+                      placeholder: AssetImage('assets/img/no-image.png'),
+                    ),
+                  ), 
     );
   }
 

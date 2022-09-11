@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:app_beta/src/models/category.dart';
 import 'package:app_beta/src/models/product.dart';
 import 'package:app_beta/src/pages/client/products/list/client_products_list_controller.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/scheduler.dart';
 // ignore: must_be_immutable
 class ClientProductsListPage extends StatefulWidget {
   Product product;
+  Category category;
 
   ClientProductsListPage({Key key}) : super(key: key);
 
@@ -23,7 +26,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     super.initState();
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context, refresh, widget.product);
+      _con.init(context, refresh, widget.product, widget.category);
     });
   }
 
@@ -75,43 +78,47 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           tabs: List<Widget>.generate(
             _con.categories.length,
             (index) {
-              return Row(
-                children: [
-                  Container(
-                    height: 35,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      // color: Colors.purple,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: FadeInImage(
-                      image: _con.product?.image2 != null
-                          ? NetworkImage(_con.product.image2)
-                          : AssetImage(
-                              'assets/img/dogg.png',
-                            ),
+              return Container(
+                child: Image(
+                  image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/nuevoproyecto-9fb14.appspot.com/o/image_1662933945507?alt=media&token=b8c61649-e616-473e-bf81-39ee4c1ccbe6"),
+                ),
 
-                      // fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/dogg.png'),
-                    ),
-                  ),
-                  Container(
-                    height: 50,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      // color: Colors.purple,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                      child: Text(
-                        _con.categories[index].name ?? '',
-                        style: TextStyle(),
-                      ),
-                    ),
-                  ),
-                ],
+                
               );
+              // return Row(
+              //   children: [
+              //     Container(
+              //       height: 35,
+              //       width: 40,
+              //       decoration: BoxDecoration(
+              //         // color: Colors.purple,
+              //         borderRadius: BorderRadius.circular(30),
+              //       ),
+              //       child: FadeInImage(
+              //         image: _con.category?.image != null
+              //             ? NetworkImage(_con.category.image)
+              //             : AssetImage('assets/img/no-image.png'),
+              //         placeholder: AssetImage("assets/img/no-image.png"),
+              //       ),
+              //     ),
+              //     Container(
+              //       height: 50,
+              //       width: 70,
+              //       decoration: BoxDecoration(
+              //         // color: Colors.purple,
+              //         borderRadius: BorderRadius.circular(20),
+              //       ),
+              //       child: Center(
+              //         child: Text(
+              //           // "hola",
+              //           _con.categories[index].name ?? '',
+
+              //           style: TextStyle(),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // );
             },
           ),
         ),
@@ -154,15 +161,19 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     );
   }
 
-  Widget imgCategory() {
+  Widget imgCategory(Category category) {
     return CircleAvatar(
-      child: FadeInImage(
-        image: _con.product?.image1 != null
-            ? NetworkImage(_con.category.image)
-            : AssetImage('assets/img/no-image.png'),
-        fit: BoxFit.cover,
-        fadeInDuration: Duration(milliseconds: 50),
-        placeholder: AssetImage('assets/img/no-image.png'),
+      child: Container(
+        height: 60,
+        margin: EdgeInsets.only(top: 10),
+        child: FadeInImage(
+          image: _con.category?.image != null
+              ? NetworkImage(_con.category?.image)
+              : AssetImage('assets/img/no-image.png'),
+          fit: BoxFit.contain,
+          fadeInDuration: Duration(milliseconds: 50),
+          placeholder: AssetImage('assets/img/no-image.png'),
+        ),
       ),
     );
   }
@@ -204,8 +215,8 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
   Widget _cardProduct(Product product) {
     // final _random = Random();
     return GestureDetector(
-      onTap: () {
-        _con.openBottomSheet(product);
+      onTap: (){
+         _con.openBottomSheet(product);
       },
       child: Container(
         // color: Colors.red,

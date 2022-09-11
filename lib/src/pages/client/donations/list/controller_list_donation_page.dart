@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:app_beta/src/models/category.dart';
 import 'package:app_beta/src/models/donations.dart';
-import 'package:app_beta/src/models/product.dart';
 import 'package:app_beta/src/models/user.dart';
-import 'package:app_beta/src/pages/client/products/detail/client_products_detail_page.dart';
+import 'package:app_beta/src/pages/client/donations/details/detail_donations_page.dart';
 import 'package:app_beta/src/provider/categories_provider.dart';
 import 'package:app_beta/src/provider/donations_provider.dart';
 import 'package:app_beta/src/provider/push_notifications_provider.dart';
@@ -77,12 +76,7 @@ class ClientDonationsController {
     refresh();
   }
 
-  void openBottomSheet(Product product) {
-    showMaterialModalBottomSheet(
-        context: context,
-        builder: (context) => ClientProductsDetailPage(product: product)
-    ); 
-  }
+  
 
   void addToBag() {
     int index = selectedProducts.indexWhere((p) => p.id == donations.id);
@@ -140,7 +134,7 @@ class ClientDonationsController {
 
 
 void goToDonationPage() {
-    Navigator.pushNamed(context, 'client/orders/create');
+    Navigator.pushNamed(context, 'client/orders/create');   
   }
 
 void btnDonation(){
@@ -153,6 +147,16 @@ void okBtn(){
   Navigator.pop(context);
   
 }
+
+
+  void openBottomSheet(Donations donations) {
+    showMaterialModalBottomSheet(
+      expand: true,
+      
+        context: context,
+        builder: (context) => ClientDonationsDetailPage(donations: donations)
+    ); 
+  }
 
 
 

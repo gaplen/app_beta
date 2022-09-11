@@ -34,10 +34,11 @@ class ClientProductsListController {
   
 
 
-  Future init(BuildContext context, Function refresh, Product product) async {
+  Future init(BuildContext context, Function refresh, Product product, Category category) async {
     this.context = context;
     this.refresh = refresh;
     this.product = product;
+    this.categories = categories;
     user = User.fromJson(await _sharedPref.read('user'));
     _categoriesProvider.init(context, user);
     _productsProvider.init(context, user, product);
@@ -63,25 +64,6 @@ class ClientProductsListController {
     });
   }
 
-  Future<bool> onLikeButtonTapped(bool isLiked) async{
-    int index = selectedFavorite.indexWhere((p) => p.id == product.id);
-     product = this.product;
-      product.isFavorite = isLiked;
-      _sharedPref.save('favorite', selectedFavorite);
-      Fluttertoast.showToast(msg: 'agregado  a favoritos');
-
-      if (index == -1) {
-      // PRODUCTOS SELECCIONADOS NO EXISTE ESE PRODUCTO
-      if (product.quantity == null) {
-        product.quantity = 1;
-      }
-
-      selectedFavorite.add(product);
-    }
-    
-
-    return !isLiked;
-  }
 
   Future<List<Product>> getProducts(String idCategory, String productName) async {
     if (productName.isEmpty) {
@@ -100,12 +82,17 @@ class ClientProductsListController {
   void openBottomSheet(Product product) {
     showBarModalBottomSheet(
       expand: true,
-
-
         context: context,
         builder: (context) => ClientProductsDetailPage(product: product)
     ); 
   }
+
+openNextPAge(Product product){
+  Navigator.push(context, MaterialPageRoute(
+    builder: (context) => ClientProductsDetailPage(product: product,),)
+  );
+}
+
 
   void addToBag() {
     int index = selectedProducts.indexWhere((p) => p.id == product.id);

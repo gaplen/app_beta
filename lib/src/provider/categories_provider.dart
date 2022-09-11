@@ -47,21 +47,25 @@ class CategoriesProvider {
     }
   }
 
+  
+
 
  Future<ResponseApi> create(Category category) async {
     try {
       Uri url = Uri.http(_url, '$_api/create');
       String bodyParams = json.encode(category);
-      Map<String, String> headers = {
+      Map<String, String> headers = { 
         'Content-type': 'application/json',
         'Authorization': sessionUser.sessionToken
       };
       final res = await http.post(url, headers: headers, body: bodyParams);
-
+      
+      
       if (res.statusCode == 401) {
         Fluttertoast.showToast(msg: 'Sesion expirada');
         new SharedPref().logout(context, sessionUser.id);
       }
+      
 
       final data = json.decode(res.body);
       ResponseApi responseApi = ResponseApi.fromJson(data);
@@ -73,20 +77,21 @@ class CategoriesProvider {
     }
   }
 
-  Future<Stream> createWithImage(Category category, List<File> image) async {
+  Future<Stream> createWithImage(Category category, File image) async {
     try {
-      Uri url = Uri.http(_url, '$_api/createWithImage');
+      Uri url = Uri.http(_url, '$_api/create');
       final request = http.MultipartRequest('POST', url);
       request.headers['Authorization'] = sessionUser.sessionToken;
 
-      for (int i = 0; i < image.length; i++) {
+      if (image != null) {
         request.files.add(http.MultipartFile(
-            'image',
-            http.ByteStream(image[i].openRead().cast()),
-            await image[i].length(),
-            filename: basename(image[i].path)
+          'image',
+          http.ByteStream(image.openRead().cast()),
+          await image.length(),
+          filename: basename(image.path)
         ));
       }
+
 
       request.fields['category'] = json.encode(category);
       final response = await request.send(); // ENVIARA LA PETICION
@@ -98,32 +103,4 @@ class CategoriesProvider {
     }
   }
   
-
-  //  Future<Stream> create(Category category, List<File> images) async {
-  //   try {
-  //     Uri url = Uri.http(_url, '$_api/create');
-  //     final request = http.MultipartRequest('POST', url);
-  //     request.headers['Authorization'] = sessionUser.sessionToken;
-
-  //     for (int i = 0; i < images.length; i++) {
-  //       request.files.add(http.MultipartFile(
-  //           'image',
-  //           http.ByteStream(images[i].openRead().cast()),
-  //           await images[i].length(),
-  //           filename: basename(images[i].path)
-  //       ));
-  //     }
-
-  //     request.fields['category'] = json.encode(category);
-  //     final response = await request.send(); // ENVIARA LA PETICION
-  //     return response.stream.transform(utf8.decoder);
-  //   }
-  //   catch(e) {
-  //     print('Error: $e');
-  //     return null;
-  //   }
-  // }
-
-
-
 }

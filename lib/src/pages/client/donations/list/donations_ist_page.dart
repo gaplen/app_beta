@@ -1,15 +1,15 @@
 import 'package:app_beta/src/models/category.dart';
 import 'package:app_beta/src/models/donations.dart';
-import 'package:app_beta/src/pages/client/donations/controller_donation_page.dart';
+import 'package:app_beta/src/pages/client/donations/list/controller_list_donation_page.dart';
 import 'package:app_beta/src/widgets/no_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 // ignore: must_be_immutable
 class ClientDontationsPage extends StatefulWidget {
-  Donations donations;
-
   ClientDontationsPage({Key key}) : super(key: key);
+
+  Donations donations;
 
   @override
   _ClientDontationsPageState createState() => _ClientDontationsPageState();
@@ -37,12 +37,24 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
         appBar: AppBar(
           title: Text('Donaciones'),
           centerTitle: true,
-          actions: [Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: _con.okBtn,
-              icon: Icon(Icons.help)),
-          )],
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                   IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.shopping_cart_outlined),
+                  ),
+                  IconButton(
+                    onPressed: _con.okBtn,
+                    icon: Icon(Icons.help),
+                  ),
+                 
+                ],
+              ),
+            )
+          ],
         ),
         backgroundColor: Colors.cyan.shade100,
         key: _con.key,
@@ -53,14 +65,8 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SafeArea(
-                  child: Container(
-                    height: 100,
-                  ),
-                ),
                 cardPanel(),
                 // cardPanel(),
-               
               ],
             ),
           ),
@@ -70,13 +76,11 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
     );
   }
 
-
   Widget cardPanel() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-
         Container(
           color: Colors.red,
           height: MediaQuery.of(context).size.height * 0.5,
@@ -116,36 +120,41 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
   Widget _cardProduct(Donations donations) {
     // final _random = Random();
     return GestureDetector(
-      onTap: _con.goToDonationPage,
+      onTap: () {
+        _con.openBottomSheet(donations);
+      },
       child: Container(
-        // color: Colors.red,
+        // color: Colors.purple,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 5.0, right: 5, top: 10),
+                  padding: const EdgeInsets.only(left: 5.0, right: 5),
                   child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                     
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    margin: EdgeInsets.only(top: 0),
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    // padding: EdgeInsets.all(20),
-                  ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.grey,
+                        image: DecorationImage(
+                            image: AssetImage(
+                              'assets/img/iconpaw.png',
+                            ),
+                            fit: BoxFit.contain),
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      margin: EdgeInsets.only(top: 0),
+                      width: MediaQuery.of(context).size.width
+                      // padding: EdgeInsets.all(20),
+                      ),
                 ),
                 //image
                 Positioned(
-                  top: MediaQuery.of(context).size.width * 0.1,
+                  top: MediaQuery.of(context).size.width * 0.2,
                   left: MediaQuery.of(context).size.height * 0.035,
                   child: Container(
-                    // height: 150,pur
-                    // width: MediaQuery.of(context).size.width * 0.30,
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.40,
                     // color: Colors.purple,
 
                     child: FadeInImage(
@@ -157,7 +166,6 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
                       fit: BoxFit.contain,
                       fadeInDuration: Duration(milliseconds: 50),
                       placeholder: AssetImage('assets/img/no-image.png'),
-                      height: 100,
                     ),
                   ),
                 ),
@@ -197,14 +205,7 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
     );
   }
 
-  
-
-
   void refresh() {
     setState(() {}); // CTRL + S
   }
 }
-
-
-
-
