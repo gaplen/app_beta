@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:app_beta/src/models/category.dart';
 import 'package:app_beta/src/models/product.dart';
 import 'package:app_beta/src/pages/client/products/list/client_products_list_controller.dart';
@@ -11,9 +9,10 @@ import 'package:flutter/scheduler.dart';
 // ignore: must_be_immutable
 class ClientProductsListPage extends StatefulWidget {
   Product product;
-  Category category;
 
-  ClientProductsListPage({Key key}) : super(key: key);
+  ClientProductsListPage({
+    Key key,
+  }) : super(key: key);
 
   @override
   _ClientProductsListPageState createState() => _ClientProductsListPageState();
@@ -27,12 +26,14 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     super.initState();
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context, refresh, widget.product, widget.category);
+      _con.init(context, refresh, widget.product);
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return DefaultTabController(
       length: _con.categories?.length,
       child: Scaffold(
@@ -54,7 +55,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    animalCategory( Category()),
+                    animalCategory(),
 
                     // animalCategory(),
                     // animalCategory(),
@@ -71,7 +72,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     );
   }
 
-  Widget animalCategory( Category category) {
+  Widget animalCategory() {
     return Padding(
       padding: const EdgeInsets.only(top: 15, left: 5),
       child: TabBar(
@@ -94,15 +95,16 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: FadeInImage(
-                        image: category.image != null
-                            ? NetworkImage(
-                                category.image,
-                              )
-                            : AssetImage('assets/img/no-image.png'),
-                        fit: BoxFit.contain,
-                        fadeInDuration: Duration(milliseconds: 50),
-                        placeholder: AssetImage('assets/img/no-image.png'),
-                      ),
+                    image: _con.product?.image2 != null
+                        ? NetworkImage(_con.product.image2)
+                        : AssetImage(
+                            'assets/img/dogg.png',
+                          ),
+
+                    // fit: BoxFit.cover,
+                    fadeInDuration: Duration(milliseconds: 50),
+                    placeholder: AssetImage('assets/img/iconDrawer.png'),
+                  ),
                 ),
                 Container(
                   height: 50,
@@ -144,7 +146,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                               crossAxisCount: 2, childAspectRatio: 0.75),
                       itemCount: snapshot.data?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
-                        return _cardProduct2(
+                        return _cardProduct(
                           snapshot.data[index],
                         );
                       },
@@ -161,19 +163,15 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     );
   }
 
-  Widget imgCategory(Category category) {
+  Widget imgCategory() {
     return CircleAvatar(
-      child: Container(
-        height: 60,
-        margin: EdgeInsets.only(top: 10),
-        child: FadeInImage(
-          image: _con.category?.image != null
-              ? NetworkImage(_con.category?.image)
-              : AssetImage('assets/img/no-image.png'),
-          fit: BoxFit.contain,
-          fadeInDuration: Duration(milliseconds: 50),
-          placeholder: AssetImage('assets/img/no-image.png'),
-        ),
+      child: FadeInImage(
+        image: _con.product?.image1 != null
+            ? NetworkImage(_con.category.image)
+            : AssetImage('assets/img/no-image.png'),
+        fit: BoxFit.cover,
+        fadeInDuration: Duration(milliseconds: 50),
+        placeholder: AssetImage('assets/img/no-image.png'),
       ),
     );
   }
@@ -215,94 +213,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
   Widget _cardProduct(Product product) {
     // final _random = Random();
     return GestureDetector(
-      onTap: () {
-        _con.openBottomSheet(product);
-      },
-      child: Container(
-        // color: Colors.red,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0, right: 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      image: DecorationImage(
-                          image: AssetImage(
-                            'assets/img/iconpaw.png',
-                          ),
-                          fit: BoxFit.contain),
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    margin: EdgeInsets.only(top: 0),
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    // padding: EdgeInsets.all(20),
-                  ),
-                ),
-                //image
-                Positioned(
-                  top: MediaQuery.of(context).size.width * 0.2,
-                  left: MediaQuery.of(context).size.height * 0.035,
-                  child: Container(
-                    height: 150,
-                    width: MediaQuery.of(context).size.width * 0.40,
-                    // color: Colors.purple,
-
-                    child: FadeInImage(
-                      image: product.image1 != null
-                          ? NetworkImage(
-                              product.image1,
-                            )
-                          : AssetImage('assets/img/no-image.png'),
-                      fit: BoxFit.contain,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png'),
-                    ),
-                  ),
-                ),
-
-                //Textname
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.02,
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  child: Container(
-                    // color: Colors.purple,
-                    child: Text(
-                      product.name ?? '',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          fontFamily: 'NimbusSans'),
-                    ),
-                  ),
-                ),
-                //Favorite
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.02,
-                  left: MediaQuery.of(context).size.width * 0.38,
-                  child: Container(
-                    height: 20,
-                    width: 20,
-                    // color: Colors.purple,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _cardProduct2(Product product) {
-    // final _random = Random();
-    return GestureDetector(
         onTap: () {
           _con.openBottomSheet(product);
         },
@@ -323,14 +233,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                       width: double.maxFinite,
                       height: 150,
                       child: FadeInImage(
-                        image: product.image1 != null
-                            ? NetworkImage(
-                                product.image1,
-                              )
-                            : AssetImage('assets/img/no-image.png'),
+                        image: AssetImage('assets/img/prro.png'),
+                        placeholder: AssetImage('assets/json/loading.json'),
                         fit: BoxFit.contain,
-                        fadeInDuration: Duration(milliseconds: 50),
-                        placeholder: AssetImage('assets/img/no-image.png'),
                       ),
                     ),
                     Column(
@@ -338,10 +243,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 7, left: 10),
-                          child: Container(
-                            height: 20,
-                            child: Text(product?.name ?? ""),
-                          ),
+                          child: Container(height: 20, child: Text('Fabian')),
                         ),
                         Container(
                           width: double.infinity,
@@ -376,10 +278,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                                 color: Colors.pink[200],
                                 size: 18,
                               ),
-                              Text(
-                                  // "Female",
-                                  product?.sex ?? "",
-                                  style: TextStyle(fontSize: 15)),
+                              Text("Female", style: TextStyle(fontSize: 12)),
                               SizedBox(
                                 width: 10,
                               ),
@@ -391,7 +290,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                               SizedBox(
                                 width: 3,
                               ),
-                              Text(product?.age ?? "", style: TextStyle(fontSize: 12))
+                              Text("2 Weeks", style: TextStyle(fontSize: 12))
                             ],
                           ),
                         )
@@ -522,22 +421,19 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     return Container(
       height: 50,
       width: MediaQuery.of(context).size.width * 0.6,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      // margin: EdgeInsets.symmetric(horizontal: 60),
       child: TextField(
         onChanged: _con.onChangeText,
         decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
             hintText: 'Buscar',
-            suffixIcon: Icon(Icons.search, color: Colors.black),
+            prefixIcon: Icon(Icons.search, color: Colors.black),
             hintStyle: TextStyle(fontSize: 17, color: Colors.black),
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: BorderSide(color: Colors.white)),
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: BorderSide(color: Colors.white)),
             contentPadding: EdgeInsets.all(15)),
       ),
@@ -548,10 +444,24 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     return GestureDetector(
       onTap: _con.openDrawer,
       child: Container(
-        height: 30,
-        width: 45,
-        child: GestureDetector(
-          child: Image(image: AssetImage('assets/img/iconDrawer.png')),
+        // color: Colors.red,
+        // height: MediaQuery.of(context).size.height * 0.070,
+        // width: MediaQuery.of(context).size.width * 0.15,
+        margin: EdgeInsets.only(left: 15, top: 0),
+        child: Container(
+          height: 30,
+          width: 45,
+          child: GestureDetector(
+            child: Image(image: AssetImage('assets/img/iconDrawer.png')),
+          ),
+          // child: FadeInImage(
+          //   image: _con.user?.image != null
+          //       ? NetworkImage(_con.user?.image)
+          //       : AssetImage('assets/img/no-image.png'),
+          //   fit: BoxFit.contain,
+          //   fadeInDuration: Duration(milliseconds: 50),
+          //   placeholder: AssetImage('assets/img/no-image.png'),
+          // ),
         ),
       ),
     );
@@ -637,11 +547,11 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             title: Text('Favoritos'),
             trailing: Icon(Icons.favorite),
           ),
-          ListTile(
-            onTap: _con.goToDonationPage,
-            title: Text('Donaciones'),
-            trailing: Icon(Icons.money),
-          ),
+          // ListTile(
+          //   onTap: () {},
+          //   title: Text('Donaciones'),
+          //   trailing: Icon(Icons.money),
+          // ),
 
           // ListTile(
           //   onTap: _con.goToOrdersList,
@@ -748,27 +658,26 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
         width: 120,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10)),
-            color: Colors.orange),
+                topRight: Radius.circular(15),
+                bottomRight: Radius.circular(15)),
+            color: Colors.red[300],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: .5,
+                blurRadius: 5,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ]),
+
         // margin: EdgeInsets.only(left: 10),
         child: Center(
-          child: Text(
-            'Nueva familia',
-            textAlign: TextAlign.start,
-            style: TextStyle(fontSize: 15),
-          ),
-        ));
-  }
-
-  _buttonFlt() {
-    return FloatingActionButton(
-      focusColor: Colors.pink,
-      splashColor: Colors.red,
-      backgroundColor: Colors.black,
-      child: Icon(Icons.pets_outlined),
-      onPressed: _con.goToGivePet,
-    );
+            child: Text(
+          'Nueva familia',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+              fontSize: 15, color: Colors.white, fontWeight: FontWeight.w500),
+        )));
   }
 
   void refresh() {
