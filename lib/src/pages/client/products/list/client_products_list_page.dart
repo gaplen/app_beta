@@ -31,6 +31,8 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -54,10 +56,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    animalCategory( Category()),
+                    animalCategory(),
 
-                    // animalCategory(),
-                    // animalCategory(),
+                 
                   ],
                 ),
                 SizedBox(height: 15),
@@ -71,7 +72,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     );
   }
 
-  Widget animalCategory( Category category) {
+  Widget animalCategory() {
     return Padding(
       padding: const EdgeInsets.only(top: 15, left: 5),
       child: TabBar(
@@ -93,16 +94,8 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     // color: Colors.purple,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: FadeInImage(
-                        image: category.image != null
-                            ? NetworkImage(
-                                category.image,
-                              )
-                            : AssetImage('assets/img/no-image.png'),
-                        fit: BoxFit.contain,
-                        fadeInDuration: Duration(milliseconds: 50),
-                        placeholder: AssetImage('assets/img/no-image.png'),
-                      ),
+                  child: Image.network(_con.categories[index].image ?? Image.asset("assets/img/no-image.png")),
+                
                 ),
                 Container(
                   height: 50,
@@ -161,7 +154,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     );
   }
 
-  Widget imgCategory(Category category) {
+  Widget imgCategory() {
     return CircleAvatar(
       child: Container(
         height: 60,
@@ -307,7 +300,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           _con.openBottomSheet(product);
         },
         child: Container(
-          width: 200,
+          // color: Colors.purple,
           child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
@@ -321,7 +314,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                       padding: EdgeInsets.only(top: 5),
                       color: MyColors.cardBackground,
                       width: double.maxFinite,
-                      height: 150,
+                      height: MediaQuery.of(context).size.height * 0.18,
                       child: FadeInImage(
                         image: product.image1 != null
                             ? NetworkImage(
@@ -367,7 +360,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                         Container(
                           width: double.infinity,
                           //  color: Colors.red,
-                          height: 40,
+                          height: MediaQuery.of(context).size.height * 0.05,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -391,7 +384,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                               SizedBox(
                                 width: 3,
                               ),
-                              Text(product?.age ?? "", style: TextStyle(fontSize: 12))
+                              Text(product?.age?? "", style: TextStyle(fontSize: 12))
                             ],
                           ),
                         )
@@ -402,87 +395,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
               )),
         )
 
-        // child: Container(
-        // color: Colors.red,
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       Stack(
-        //         children: [
-        //           Padding(
-        //             padding: const EdgeInsets.only(left: 5.0, right: 5),
-        //             child: Container(
-        //               decoration: BoxDecoration(
-        //                 borderRadius: BorderRadius.circular(10),
-        //                 color: Colors.white,
-
-        //                 image: DecorationImage(
-        //                     image: AssetImage(
-        //                       'assets/img/iconpaw.png',
-        //                     ),
-        //                     fit: BoxFit.contain),
-        //               ),
-        //               height: MediaQuery.of(context).size.height * 0.3,
-        //               margin: EdgeInsets.only(top: 0),
-        //               width: MediaQuery.of(context).size.width * 0.6,
-        //               // padding: EdgeInsets.all(20),
-        //             ),
-        //           ),
-        //           //image
-        //           Positioned(
-        //             top: MediaQuery.of(context).size.width * 0.2,
-        //             left: MediaQuery.of(context).size.height * 0.035,
-        //             child: Container(
-        //               height: 150,
-        //               width: MediaQuery.of(context).size.width * 0.40,
-        //               // color: Colors.purple,
-
-        //               child: FadeInImage(
-        //                 image: product.image1 != null
-        //                     ? NetworkImage(
-        //                         product.image1,
-        //                       )
-        //                     : AssetImage('assets/img/no-image.png'),
-        //                 fit: BoxFit.contain,
-        //                 fadeInDuration: Duration(milliseconds: 50),
-        //                 placeholder: AssetImage('assets/img/no-image.png'),
-        //               ),
-        //             ),
-        //           ),
-
-        //           //Textname
-        //           Positioned(
-        //             top: MediaQuery.of(context).size.height * 0.02,
-        //             left: MediaQuery.of(context).size.width * 0.05,
-        //             child: Container(
-        //               // color: Colors.purple,
-        //               child: Text(
-        //                 product.name ?? '',
-        //                 maxLines: 2,
-        //                 overflow: TextOverflow.ellipsis,
-        //                 style: TextStyle(
-        //                     fontWeight: FontWeight.bold,
-        //                     fontSize: 15,
-        //                     fontFamily: 'NimbusSans'),
-        //               ),
-        //             ),
-        //           ),
-        //           //Favorite
-        //           Positioned(
-        //             top: MediaQuery.of(context).size.height * 0.02,
-        //             left: MediaQuery.of(context).size.width * 0.38,
-        //             child: Container(
-        //               height: 20,
-        //               width: 20,
-        //               // color: Colors.purple,
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-
-        //     ],
-        //   ),
-        // ),
         );
   }
 

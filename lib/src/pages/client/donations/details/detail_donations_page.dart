@@ -231,27 +231,6 @@ class _ClientDonationsDetailPageState extends State<ClientDonationsDetailPage> {
   }
 
 
-   Widget _standartDelivery() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Row(
-        children: [
-          Image.asset(
-            'assets/img/delivery.png',
-            height: 17,
-          ),
-          SizedBox(width: 7),
-          Text(
-            'Envio estandar',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.green
-            ),
-          )
-        ],
-      ),
-    );
-  }
 
   Widget _addOrRemoveItem() {
     return Container(

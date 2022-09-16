@@ -5,6 +5,7 @@ import 'package:app_beta/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class ClientProductsDetailPage extends StatefulWidget {
@@ -18,51 +19,50 @@ class ClientProductsDetailPage extends StatefulWidget {
 }
 
 class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
+  static const likedKey = 'liked_key';
+  bool liked;
+
   ClientProductsDetailController _con = ClientProductsDetailController();
 
   @override
   void initState() {
     super.initState();
+    
 
+    _restorePersistedPreference();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh, widget.product);
     });
   }
 
-  void _clickFavorites() {
-    setState(() {
-      print('esta activo');
-      iconoFavoriteActivo();
-    });
+  void _restorePersistedPreference() async {
+    var preferences = await SharedPreferences.getInstance();
+    var liked = preferences.getBool(likedKey) ?? false;
+    setState(() => this.liked = liked);
+  }
+
+  void _persistPreference() async {
+    setState(() => liked = !liked);
+    var preferences = await SharedPreferences.getInstance();
+    preferences.setBool(likedKey, liked);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          _imageSlideshow(),
-          _textName(),
-          _petInfo(),
-          _ownerPet(),
-          // _textDescription(),
-          _buttonNext(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _imageSlideshow(),
+            _textName(),
+            _petInfo(),
+            _ownerPet(),
+            // _textDescription(),
+            _buttonNext(),
+            SizedBox(height: 20,),
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget iconoFavoriteActivo() {
-    return Icon(
-      Icons.favorite,
-      color: Colors.red,
-    );
-  }
-
-  Widget iconoFavoriteDesactivado() {
-    return Icon(
-      Icons.favorite_outline,
-      color: Colors.grey,
     );
   }
 
@@ -70,7 +70,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
     return Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.38,
+          height: MediaQuery.of(context).size.height * 0.40,
 
           color: Color.fromRGBO(255, 251, 136, 1),
 
@@ -100,17 +100,18 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.12),
             child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: MediaQuery.of(context).size.height * 0.3,
-                child: FadeInImage(
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: FadeInImage(
+                
                 image: _con.product?.image1 != null
                     ? NetworkImage(_con.product.image1)
                     : AssetImage('assets/img/no-image.png'),
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 fadeInDuration: Duration(milliseconds: 50),
                 placeholder: AssetImage('assets/img/no-image.png'),
               ),
-                ),
+            ),
           ),
         ),
         Positioned(
@@ -278,16 +279,6 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
     );
   }
 
-  // Widget _textDescription() {
-  //   return Container(
-  //     alignment: Alignment.centerLeft,
-  //     margin: EdgeInsets.only(right: 30, left: 30, top: 15),
-  //     child: Text(
-  //       _con.product?.description ?? '',
-  //       style: TextStyle(fontSize: 13, color: Colors.grey),
-  //     ),
-  //   );
-  // }
   Widget _ownerPet() {
     return Container(
       margin: EdgeInsets.symmetric(
@@ -298,7 +289,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
             height: 10,
           ),
           Container(
-            height: 50,
+            // height: MediaQuery.of(context).size.height * 0.20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -309,7 +300,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   //   color: Colors.red,
-                  width: MediaQuery.of(context).size.width * .32,
+                  width: MediaQuery.of(context).size.width * 0.30,
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width * 0.01),
                   child: Column(
@@ -447,32 +438,29 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
           top: 8,
           right: MediaQuery.of(context).size.width * 0.1,
           child: Material(
-            borderRadius: BorderRadius.circular(50),
-            elevation: 5,
-            child: IconButton(
-                onPressed: () {
-                  _clickFavorites();
-                },
-                icon: iconoFavoriteDesactivado()),
-          ),
+              borderRadius: BorderRadius.circular(50),
+              elevation: 5,
+              child: liked == null
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Row(
+                      children: [
+                        Container(
+                          child: IconButton(
+                            onPressed: () {
+                              _persistPreference();
+                            _con.addFavorite();
+                            },
+                            icon: Icon(
+                              liked ? Icons.favorite : Icons.favorite_border,
+                              color: liked ? Colors.red : Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
         ),
-        // Container(
-        //   margin: EdgeInsets.only(top: 50),
-        //   height: 35,
-        //   width: 35,
-        //   decoration: BoxDecoration(boxShadow: [
-        //     BoxShadow(
-        //       color: Colors.grey.withOpacity(0.5),
-        //       spreadRadius: 2,
-        //       blurRadius: 5,
-        //       offset: Offset(0, 1), // changes position of shadow
-        //     ),
-        //   ], borderRadius: BorderRadius.circular(50), color: Colors.grey[50]),
-        //   child: Icon(
-        //     Icons.favorite,
-        //     color: Colors.red,
-        //   ),
-        // )
       ],
     );
   }

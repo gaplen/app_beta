@@ -37,6 +37,8 @@ class ClientProductsDetailController {
 
   }
 
+  
+
 
   void addFavorite() {
     int index = selectedProducts.indexWhere((p) => p.id == product.id);
@@ -58,9 +60,9 @@ class ClientProductsDetailController {
     }
       
     }
-    removeItem();
+    // removeItem();
     _sharedPref.save('order', selectedProducts);
-    Fluttertoast.showToast(msg: 'Producto Eliminado');
+    Fluttertoast.showToast(msg: 'Agregado a favoritos');
   }
 
   void addToBag() {
@@ -74,17 +76,19 @@ class ClientProductsDetailController {
 
       selectedProducts.add(product);
     } else {
-      selectedProducts[index].quantity = counter;
+      
+
+      // selectedProducts[index].quantity = counter;
     }
 
     _sharedPref.save('order', selectedProducts);
-    Fluttertoast.showToast(msg: 'Producto agregado');
+    Fluttertoast.showToast(msg: 'Agregado a favoritos');
   }
 
   void addItem() {
     counter = counter + 1;
-    // productPrice = product.price * counter;
-    // product.quantity = counter;
+    productPrice = product.price * counter;
+    product.quantity = counter;
     refresh();
   }
 
