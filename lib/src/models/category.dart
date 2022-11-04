@@ -11,6 +11,8 @@ class Category {
   String image;
   String image2;
   String image3;
+  String sex;
+  String sex2;
   String description;
   List<Category> toList = [];
 
@@ -20,6 +22,8 @@ class Category {
     this.image,
     this.image2,
     this.image3,
+    this.sex,
+    this.sex2,
     this.description,
   });
 
@@ -31,6 +35,8 @@ class Category {
     image: json["image"],
     image2: json["image2"],
     image3: json ["image3"],
+    sex: json["sex"],
+    sex2: json["sex2"],
     description: json["description"],
   );
 
@@ -48,6 +54,8 @@ class Category {
     "image": image,
     "image2": image2,
     "image3": image3,
+    "sex" :sex,
+    "sex2" :sex2,
     "description": description,
   };
 }

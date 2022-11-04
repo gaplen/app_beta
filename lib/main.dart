@@ -8,6 +8,11 @@ import 'package:app_beta/src/pages/client/products/list/client_products_list_pag
 import 'package:app_beta/src/pages/client/update/client_update_page.dart';
 import 'package:app_beta/src/pages/login/login_page.dart';
 import 'package:app_beta/src/pages/lostpassword/lost_password_page.dart';
+import 'package:app_beta/src/pages/payments/contraentrega/contraentrega_payment_page.dart';
+import 'package:app_beta/src/pages/payments/create/client_payments_create_page.dart';
+import 'package:app_beta/src/pages/payments/decider/decider_payments_page.dart';
+import 'package:app_beta/src/pages/payments/installments/client_payments_installments_page.dart';
+import 'package:app_beta/src/pages/payments/status/client_payments_status_page.dart';
 import 'package:app_beta/src/pages/pets/categories/create/pets_categories_create_page.dart';
 import 'package:app_beta/src/pages/pets/donations/create/donations_products_create_page.dart';
 import 'package:app_beta/src/pages/pets/orders/list/admin_list_page.dart';
@@ -75,26 +80,35 @@ class _MyAppState extends State<MyApp> {
         'register' : (BuildContext context) => RegisterPage(),
         'lostPassword' : (BuildContext contex ) => LostPasswordPage(),
         'roles' : (BuildContext context) => RolesPage(),
+        
         'client/products/list' : (BuildContext context) => ClientProductsListPage(),
         'client/orders/create': (BuildContext context) => ClientOrdersCreatePage(),
         'client/products/favorite': (BuildContext context) => ClientFavoriteCreatePage(),
         'client/adoptpets' : (BuildContext context ) => PetsPage(),
         'client/update' : (BuildContext context) => ClientUpdatePage(),
+        'client/address/create' : (BuildContext context) => ClientAddressCreatePage(),
+        'client/address/list' : (BuildContext context) => ClientAddressListPage(),
+        
         
         'pets/orders/list' : (BuildContext context) => AdminOrdersListPage(),
         'pets/categories/create' : (BuildContext context) => PetsCategoriesCreatePage(),
         'pets/products/create' : (BuildContext context) => RestaurantProductsCreatePage(),
       
         'client/donations/donatepage': (BuildContext context) => ClientDontationsPage(),
-        
         'pets/order/list' : (BuildContext context) => PetsOrdersListPage(),
 
         
         'pets/donations/create' : (BuildContext context) => DonationsProductsCreatePage(),
-
         
-        'client/address/create' : (BuildContext context) => ClientAddressCreatePage(),
-        'client/address/list' : (BuildContext context) => ClientAddressListPage(),
+        //payments
+         'client/payments/create'        : (BuildContext context) => ClientPaymentsCreatePage(),
+        'client/payments/decider'       : (BuildContext context) => DeciderPaymentPage(),
+        'client/payments/contraentrega' : (BuildContext context) => ContraEntregaPage(),
+        'client/payments/installments'  : (BuildContext context) => ClientPaymentsInstallmentsPage(),
+        'client/payments/status'        : (BuildContext context) => ClientPaymentsStatusPage(),
+       
+        
+     
         
 
 

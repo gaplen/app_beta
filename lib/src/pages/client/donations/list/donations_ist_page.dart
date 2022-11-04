@@ -43,12 +43,17 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
               child: Row(
                 children: [
                    IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                       _con.goToDonationPage();
+                    },
                     icon: Icon(Icons.shopping_cart_outlined),
                   ),
                   IconButton(
-                    onPressed: _con.okBtn,
-                    icon: Icon(Icons.help),
+                    
+                    icon: Icon(Icons.help, color: Colors.purple,),
+                    onPressed: (){
+                       _con.okBtn();
+                    }
                   ),
                  
                 ],
@@ -75,6 +80,7 @@ class _ClientDontationsPageState extends State<ClientDontationsPage> {
       ),
     );
   }
+  
 
   Widget cardPanel() {
     return Column(

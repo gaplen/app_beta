@@ -13,11 +13,17 @@ class ClientAddressCreateController {
   BuildContext context;
   Function refresh;
 
-  TextEditingController txt1Controller = new TextEditingController();
-  TextEditingController txt2Controller = new TextEditingController();
-  TextEditingController txt3Controller = new TextEditingController();
-  TextEditingController txt4Controller = new TextEditingController();
+
+
   TextEditingController refPointController = new TextEditingController();
+  TextEditingController addressController = new TextEditingController();
+  TextEditingController neighborhoodController = new TextEditingController();
+
+  // TextEditingController txt1Controller = new TextEditingController();
+  // TextEditingController txt2Controller = new TextEditingController();
+  // TextEditingController txt3Controller = new TextEditingController();
+  // TextEditingController txt4Controller = new TextEditingController();
+  // TextEditingController refPointController = new TextEditingController();
 
   Map<String, dynamic> refPoint;
 
@@ -32,46 +38,77 @@ class ClientAddressCreateController {
     _addressProvider.init(context, user);
   }
 
-  void createAddress() async {
-    String preguntaUno = txt1Controller.text;
-    String preguntaDos = txt2Controller.text;
-    String preguntaTres = txt3Controller.text;
-    String preguntaCuatro = txt4Controller.text;
-
+ void createAddress() async {
+    String addressName = addressController.text;
+    String neighborhood = neighborhoodController.text;
     double lat = refPoint['lat'] ?? 0;
     double lng = refPoint['lng'] ?? 0;
 
-    if (preguntaUno.isEmpty ||
-        preguntaDos.isEmpty ||
-        preguntaTres.isEmpty ||
-        preguntaCuatro.isEmpty ||
-        lat == 0 ||
-        lng == 0) {
+    if (addressName.isEmpty || neighborhood.isEmpty || lat == 0 || lng == 0) {
       MySnackbar.show(context, 'Completa todos los campos');
       return;
     }
 
     Address address = new Address(
-        address: preguntaUno,
-        neighborhood: preguntaDos,
-        postalCode: preguntaTres,
-        telephono: preguntaCuatro,
-        lat: lat,
-        lng: lng,
-        idUser: user.id);
+      address: addressName,
+      neighborhood: neighborhood,
+      lat: lat,
+      lng: lng,
+      idUser: user.id
+    );
 
     ResponseApi responseApi = await _addressProvider.create(address);
 
     if (responseApi.success) {
+
       address.id = responseApi.data;
       _sharedPref.save('address', address);
 
       Fluttertoast.showToast(msg: responseApi.message);
-      myshowAlertDialog(context);
-      // Navigator.pop(context, true);
-      // Navigator.popAndPushNamed(context, 'client/products/list');
+      Navigator.pop(context, true);
     }
   }
+
+  // void createAddress() async {
+  //   // String preguntaUno = txt1Controller.text;
+  //   // String preguntaDos = txt2Controller.text;
+  //   // String preguntaTres = txt3Controller.text;
+  //   // String preguntaCuatro = txt4Controller.text;
+
+  //   double lat = refPoint['lat'] ?? 0;
+  //   double lng = refPoint['lng'] ?? 0;
+
+  //   // if (preguntaUno.isEmpty ||
+  //   //     preguntaDos.isEmpty ||
+  //   //     preguntaTres.isEmpty ||
+  //   //     preguntaCuatro.isEmpty ||
+  //   //     lat == 0 ||
+  //   //     lng == 0) {
+  //   //   MySnackbar.show(context, 'Completa todos los campos');
+  //   //   return;
+  //   // }
+
+  //   Address address = new Address(
+  //       // address: preguntaUno,
+  //       // neighborhood: preguntaDos,
+  //       // postalCode: preguntaTres,
+  //       // telephono: preguntaCuatro,
+  //       // lat: lat,
+  //       // lng: lng,
+  //       // idUser: user.id);
+
+  //   ResponseApi responseApi = await _addressProvider.create(address);
+
+  //   if (responseApi.success) {
+  //     address.id = responseApi.data;
+  //     _sharedPref.save('address', address);
+
+  //     Fluttertoast.showToast(msg: responseApi.message);
+  //     myshowAlertDialog(context);
+  //     // Navigator.pop(context, true);
+  //     // Navigator.popAndPushNamed(context, 'client/products/list');
+  //   }
+  // }
 
   void openMap() async {
     refPoint = await showMaterialModalBottomSheet(

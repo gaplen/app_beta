@@ -18,6 +18,7 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
@@ -29,7 +30,7 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Direcciones'),
-        actions: [ 
+        actions: [
           _iconAdd()
         ],
       ),
@@ -84,7 +85,7 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
       child: ElevatedButton(
         onPressed: _con.createOrder,
         child: Text(
-          'ContinuAar', style: TextStyle(color: Colors.black),
+          'ACEPTAR'
         ),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -181,7 +182,7 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
   Widget _iconAdd() {
     return IconButton(
         onPressed: _con.goToNewAddress,
-        icon: Icon(Icons.add, color: Colors.black)
+        icon: Icon(Icons.add, color: Colors.white)
     );
   }
 

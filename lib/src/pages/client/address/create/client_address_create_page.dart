@@ -32,103 +32,43 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _txtTitle(),
-            _txtUno(),
-            _txtDos(),
-            _txtTres(),
-            _txtCuatro(),
-            _txtMap(),
            
+             _textCompleteData(),
+          _textFieldAddress(),
+          _textFieldNeighborhood(),
+          _textFieldRefPoint()
             // _textFieldRefPoint()
           ],
         ),
       ),
     );
+
+
+
+    
+
+
+
   }
 
-  Widget _txtUno() {
+
+  Widget _textFieldAddress() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Column(
-        children: [
-          Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
-          
-          TextField(
-          
-            controller: _con.txt1Controller,
-            decoration: InputDecoration(
-            labelStyle: TextStyle(
-              fontSize: 12
-            ),
-            
-            labelText: 'Escribe tu respuesta',
-            
-              // suffixIcon: Icon(
-              //   Icons.location_city,
-              //   color: MyColors.primaryColor,
-              // )
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-  Widget _txtDos() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Column(
-        children: [
-          Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
-          
-          TextField(
-            controller: _con.txt2Controller,
-             decoration: InputDecoration(
-            labelStyle: TextStyle(
-              fontSize: 12
-            ),
-            
-            labelText: 'Escribe tu respuesta',
-            
-              // suffixIcon: Icon(
-              //   Icons.location_city,
-              //   color: MyColors.primaryColor,
-              // )
-            ),
-          ),
-        ],
+      child: TextField(
+        controller: _con.addressController,
+        decoration: InputDecoration(
+          labelText: 'Direccion',
+          suffixIcon: Icon(
+            Icons.location_on,
+            color: MyColors.primaryColor,
+          )
+        ),
       ),
     );
   }
 
-  Widget _txtTres() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Column(
-        children: [
-          Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
-          
-          TextField(
-            keyboardType: TextInputType.phone,
-            controller: _con.txt3Controller,
-             decoration: InputDecoration(
-            labelStyle: TextStyle(
-              fontSize: 12
-            ),
-            
-            labelText: 'Escribe tu respuesta',
-            
-              // suffixIcon: Icon(
-              //   Icons.location_city,
-              //   color: MyColors.primaryColor,
-              // )
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _txtMap() {
+  Widget _textFieldRefPoint() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TextField(
@@ -141,45 +81,34 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
           suffixIcon: Icon(
             Icons.map,
             color: MyColors.primaryColor,
-          ),
+          )
         ),
       ),
     );
   }
 
-  Widget _txtCuatro() {
+  Widget _textFieldNeighborhood() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-      child: Column(
-        children: [
-          Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
-          
-          TextField(
-            controller: _con.txt4Controller,
-            decoration: InputDecoration(
-            labelStyle: TextStyle(
-              fontSize: 12
-            ),
-            
-            labelText: 'Escribe tu respuesta',
-            
-              // suffixIcon: Icon(
-              //   Icons.location_city,
-              //   color: MyColors.primaryColor,
-              // )
-            ),
-          ),
-        ],
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: TextField(
+        controller: _con.neighborhoodController,
+        decoration: InputDecoration(
+          labelText: 'Barrio',
+          suffixIcon: Icon(
+            Icons.location_city,
+            color: MyColors.primaryColor,
+          )
+        ),
       ),
     );
   }
 
-  Widget _txtTitle() {
+  Widget _textCompleteData() {
     return Container(
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
       child: Text(
-        'Contesta la siguientes preguntas',
+        'Completa estos datos',
         style: TextStyle(
             fontSize: 19,
             fontWeight: FontWeight.bold
@@ -194,10 +123,9 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
       child: ElevatedButton(
-        
         onPressed: _con.createAddress,
         child: Text(
-            'Continuar', style: TextStyle(color: Colors.black),
+            'CREAR DIRECCION'
         ),
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -208,6 +136,171 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
       ),
     );
   }
+
+
+
+  // Widget _txtUno() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+  //     child: Column(
+  //       children: [
+  //         Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
+          
+  //         TextField(
+          
+  //           controller: _con.txt1Controller,
+  //           decoration: InputDecoration(
+  //           labelStyle: TextStyle(
+  //             fontSize: 12
+  //           ),
+            
+  //           labelText: 'Escribe tu respuesta',
+            
+  //             // suffixIcon: Icon(
+  //             //   Icons.location_city,
+  //             //   color: MyColors.primaryColor,
+  //             // )
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+  // Widget _txtDos() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+  //     child: Column(
+  //       children: [
+  //         Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
+          
+  //         TextField(
+  //           controller: _con.txt2Controller,
+  //            decoration: InputDecoration(
+  //           labelStyle: TextStyle(
+  //             fontSize: 12
+  //           ),
+            
+  //           labelText: 'Escribe tu respuesta',
+            
+  //             // suffixIcon: Icon(
+  //             //   Icons.location_city,
+  //             //   color: MyColors.primaryColor,
+  //             // )
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Widget _txtTres() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+  //     child: Column(
+  //       children: [
+  //         Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
+          
+  //         TextField(
+  //           keyboardType: TextInputType.phone,
+  //           controller: _con.txt3Controller,
+  //            decoration: InputDecoration(
+  //           labelStyle: TextStyle(
+  //             fontSize: 12
+  //           ),
+            
+  //           labelText: 'Escribe tu respuesta',
+            
+  //             // suffixIcon: Icon(
+  //             //   Icons.location_city,
+  //             //   color: MyColors.primaryColor,
+  //             // )
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Widget _txtMap() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+  //     child: TextField(
+  //       controller: _con.refPointController,
+  //       onTap: _con.openMap,
+  //       autofocus: false,
+  //       focusNode: AlwaysDisabledFocusNode(),
+  //       decoration: InputDecoration(
+  //         labelText: 'Punto de referencia',
+  //         suffixIcon: Icon(
+  //           Icons.map,
+  //           color: MyColors.primaryColor,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _txtCuatro() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+  //     child: Column(
+  //       children: [
+  //         Text('Aliquip deserunt laborum labore irure Lorem et qui eiusmod consequat.'),
+          
+  //         TextField(
+  //           controller: _con.txt4Controller,
+  //           decoration: InputDecoration(
+  //           labelStyle: TextStyle(
+  //             fontSize: 12
+  //           ),
+            
+  //           labelText: 'Escribe tu respuesta',
+            
+  //             // suffixIcon: Icon(
+  //             //   Icons.location_city,
+  //             //   color: MyColors.primaryColor,
+  //             // )
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Widget _txtTitle() {
+  //   return Container(
+  //     alignment: Alignment.centerLeft,
+  //     margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+  //     child: Text(
+  //       'Contesta la siguientes preguntas',
+  //       style: TextStyle(
+  //           fontSize: 19,
+  //           fontWeight: FontWeight.bold
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _buttonAccept() {
+  //   return Container(
+  //     height: 50,
+  //     width: double.infinity,
+  //     margin: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
+  //     child: ElevatedButton(
+        
+  //       onPressed: _con.createAddress,
+  //       child: Text(
+  //           'Continuar', style: TextStyle(color: Colors.black),
+  //       ),
+  //       style: ElevatedButton.styleFrom(
+  //           shape: RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(30)
+  //           ),
+  //           primary: MyColors.primaryColor
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void refresh() {
     setState(() {});

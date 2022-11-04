@@ -46,6 +46,8 @@ class ClientDonationsController {
     refresh();
   }
 
+
+
   void onChangeText(String text) {
     const duration = Duration(milliseconds:500); // set the duration that you want call search() after that.
     if (searchOnStoppedTyping != null) {
@@ -142,9 +144,11 @@ void btnDonation(){
   
 }
 
-void okBtn(){
+  void okBtn(){
+  print("putos");
   myshowAlertDialog(context);
-  Navigator.pop(context);
+  // myshowAlertDialog(context);
+  // Navigator.pop(context);
   
 }
 
@@ -167,6 +171,7 @@ myshowAlertDialog(BuildContext context) {
       // color: Colors.purple,
       child: Column(
         children: [
+          Text('Excepteur quis cillum consectetur ex nostrud esse. Excepteur quis cillum consectetur ex nostrud esse. Excepteur quis cillum consectetur ex nostrud esse.'),
           Text("OK"),
         ],
       ),
@@ -182,7 +187,7 @@ myshowAlertDialog(BuildContext context) {
     title: Container(
       height: 200,
       width: 200,
-      // color: Colors.green,
+      color: Colors.green,
       child: Column(
         children: [
           Center(
@@ -198,7 +203,7 @@ myshowAlertDialog(BuildContext context) {
       ),
     ),
     content: Container(
-      height: 50,
+      height: 10,
       // color: Colors.red,
       child: Column(
         children: [

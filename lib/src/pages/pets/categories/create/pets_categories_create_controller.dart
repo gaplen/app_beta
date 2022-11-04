@@ -16,7 +16,12 @@ class PetsCategoriesCreateController {
   
   BuildContext context;
   TextEditingController nameController = new TextEditingController();
+  TextEditingController sexnameController = new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
+    TextEditingController sex2Controller = new TextEditingController();
+  
+  
+
 
 
   CategoriesProvider categoriesProvider = new CategoriesProvider();
@@ -47,6 +52,8 @@ class PetsCategoriesCreateController {
 
    void createCategory() async {
     String name = nameController.text;
+    String sex = sexnameController.text;
+    String sex2 = sex2Controller.text;
     String description = descriptionController.text;
 
     if (name.isEmpty || description.isEmpty) {
@@ -61,6 +68,8 @@ class PetsCategoriesCreateController {
 
     Category category = new Category(
       name: name,
+      sex:  sex,
+      sex2: sex2,
       description: description
     );
 

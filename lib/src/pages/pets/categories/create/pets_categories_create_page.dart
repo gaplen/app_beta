@@ -42,6 +42,8 @@ class _PetsCategoriesCreatePageState extends State<PetsCategoriesCreatePage> {
             _imgCategory(),
             // _txtImageurl(),
             _textFieldName(),
+            // sexCategory1(),
+            // sexCategory2(),
             _textFieldDescription()
           ],
         ),
@@ -69,6 +71,49 @@ class _PetsCategoriesCreatePageState extends State<PetsCategoriesCreatePage> {
         controller: _con.nameController,
         decoration: InputDecoration(
             hintText: 'Nombre de la categoria',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            suffixIcon: Icon(
+              Icons.list_alt,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget sexCategory1 (){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.sexnameController,
+        decoration: InputDecoration(
+            hintText: 'macho',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            suffixIcon: Icon(
+              Icons.list_alt,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  
+  Widget sexCategory2 (){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: _con.sex2Controller,
+        decoration: InputDecoration(
+            hintText: 'hembra',
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
             hintStyle: TextStyle(color: MyColors.primaryColorDark),
