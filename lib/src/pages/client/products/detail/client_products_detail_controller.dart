@@ -111,6 +111,19 @@ class ClientProductsDetailController {
     }
   }
 
+
+
+   void goToQuestion() async {
+    var result = await Navigator.pushNamed(context, 'client/questions/create');
+
+    if (result != null) {
+      if (result) {
+        refresh();
+      }
+    }
+  }
+
+
    void goToAddress() {
     Navigator.pushNamed(context, 'client/address/list');
   }

@@ -400,7 +400,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
 
   Widget _campNotf() {
     return GestureDetector(
-      onTap: _con.goToOrderCreatePage,
+      onTap: _con.goToNotification,
       child: Stack(
         children: [
           Container(
@@ -544,11 +544,11 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             trailing: Icon(Icons.edit_outlined),
           ),
 
-          ListTile(
-            onTap: _con.goToFavoritePage,
-            title: Text('Favoritos'),
-            trailing: Icon(Icons.favorite),
-          ),
+          // ListTile(
+          //   onTap: _con.goToFavoritePage,
+          //   title: Text('Favoritos'),
+          //   trailing: Icon(Icons.favorite),
+          // ),
           ListTile(
             onTap: _con.goToDonationPage,
             title: Text('Donaciones'),

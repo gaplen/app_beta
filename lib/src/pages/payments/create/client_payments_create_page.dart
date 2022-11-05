@@ -31,7 +31,7 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pagos'),
+        title: Text('Pagos con tarjeta'),
       ),
       body: ListView(
         children: [

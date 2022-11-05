@@ -35,7 +35,7 @@ class _ClientPaymentsInstallmentsPageState extends State<ClientPaymentsInstallme
         children: [
           
           _textDescription(),
-          // _dropDownInstallments()
+          _dropDownInstallments()
         ],
       ),
       bottomNavigationBar: Container(

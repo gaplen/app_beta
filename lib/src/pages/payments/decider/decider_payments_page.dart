@@ -40,7 +40,7 @@ class _DeciderPaymentPageState extends State<DeciderPaymentPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _textSelectPayments(),
-          _btncCard()
+          _btnPayments()
         ],
       ),
     );
@@ -96,7 +96,7 @@ class _DeciderPaymentPageState extends State<DeciderPaymentPage> {
     );
   }
 
-  Widget _btncCard() {
+  Widget _btnPayments() {
     return Container(
       child: Column(
         children: [
@@ -119,12 +119,12 @@ class _DeciderPaymentPageState extends State<DeciderPaymentPage> {
                         children: [
                           Container(
                               margin: EdgeInsets.only(left: 30),
-                              child: Text('pago contraentrega', style: TextStyle(fontSize: 20),)),
+                              child: Text('Pagar en Establecimiento', style: TextStyle(fontSize: 20),)),
                           Spacer(),
                           Container(
                             margin: EdgeInsets.only(top: 10),
                             height: 60,
-                            width: 100,
+                            width: 90,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                                 child: Image.asset('assets/img/contraentrega.png')),
@@ -177,7 +177,7 @@ class _DeciderPaymentPageState extends State<DeciderPaymentPage> {
           GestureDetector(
             onTap: (){
               
-               
+                Navigator.pushNamed(context, 'client/payments/banktransfer');
               
             },
             child: Padding(

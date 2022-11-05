@@ -34,7 +34,7 @@ class _ContraEntregaPageState extends State<ContraEntregaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalle de la compra'),
+        title: Text('Pago En establecimiento'),
       ),
       
       bottomNavigationBar: Container(
@@ -49,7 +49,7 @@ class _ContraEntregaPageState extends State<ContraEntregaPage> {
                 indent: 30, //IZQUIERDA
               ),
               
-              _buttonNext(),
+              // _buttonNext(),
               SizedBox(height: 10),
               // _cardProduct(donations)
               // _textData('Repartidor:', '${_con.order?.delivery?.name ?? 'No asignado'} ${_con.order?.delivery?.lastname ?? ''}'),

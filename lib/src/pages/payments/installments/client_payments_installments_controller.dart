@@ -13,6 +13,7 @@ import 'package:app_beta/src/provider/mercado_pago_provider.dart';
 import 'package:app_beta/src/utils/my_snackbar.dart';
 import 'package:app_beta/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:http/http.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
@@ -41,6 +42,8 @@ class ClientPaymentsInstallmentsController {
 
   ProgressDialog progressDialog;
 
+  String identificationType;
+  String identificationNumber;
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
@@ -49,6 +52,8 @@ class ClientPaymentsInstallmentsController {
     Map<String, dynamic> arguments = ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
 
     cardToken = MercadoPagoCardToken.fromJsonMap(arguments['card_token']);
+    identificationType = arguments['identification_type'];
+    identificationNumber = arguments['identification_number'];
 
     progressDialog = ProgressDialog(context: context);
 

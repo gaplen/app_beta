@@ -2,12 +2,15 @@ import 'package:app_beta/src/pages/client/address/create/client_address_create_p
 import 'package:app_beta/src/pages/client/address/list/client_address_list_page.dart';
 import 'package:app_beta/src/pages/client/adoptpets/adopt_pets.dart';
 import 'package:app_beta/src/pages/client/donations/list/donations_ist_page.dart';
+import 'package:app_beta/src/pages/client/notifications/notifications_page_pets.dart';
 import 'package:app_beta/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:app_beta/src/pages/client/products/favorite/client_favorite_create_page.dart';
 import 'package:app_beta/src/pages/client/products/list/client_products_list_page.dart';
+import 'package:app_beta/src/pages/client/questions/questions_page_pets.dart';
 import 'package:app_beta/src/pages/client/update/client_update_page.dart';
 import 'package:app_beta/src/pages/login/login_page.dart';
 import 'package:app_beta/src/pages/lostpassword/lost_password_page.dart';
+import 'package:app_beta/src/pages/payments/banktransfer/banktransfer_payment_page.dart';
 import 'package:app_beta/src/pages/payments/contraentrega/contraentrega_payment_page.dart';
 import 'package:app_beta/src/pages/payments/create/client_payments_create_page.dart';
 import 'package:app_beta/src/pages/payments/decider/decider_payments_page.dart';
@@ -104,11 +107,20 @@ class _MyAppState extends State<MyApp> {
          'client/payments/create'        : (BuildContext context) => ClientPaymentsCreatePage(),
         'client/payments/decider'       : (BuildContext context) => DeciderPaymentPage(),
         'client/payments/contraentrega' : (BuildContext context) => ContraEntregaPage(),
+        
+        'client/payments/banktransfer' : (BuildContext context) => BankTransferPage(),
         'client/payments/installments'  : (BuildContext context) => ClientPaymentsInstallmentsPage(),
         'client/payments/status'        : (BuildContext context) => ClientPaymentsStatusPage(),
        
         
-     
+      //questions
+      'client/questions/create'  : (BuildContext context) => ClientQuestionCreatePage(),
+
+
+      //notifications5522104
+      
+      'client/notification/create'  : (BuildContext context) => ClientNotificationCreatePage(),
+       
         
 
 

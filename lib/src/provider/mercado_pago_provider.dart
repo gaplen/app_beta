@@ -49,7 +49,6 @@ class MercadoPagoProvider {
     @required double transactionAmount,
     @required int installments,
     @required String paymentMethodId,
-    // @required String paymentTypeId,
     @required String issuerId,
     @required String emailCustomer,
     @required String cardToken,
@@ -67,7 +66,6 @@ class MercadoPagoProvider {
         'transaction_amount': transactionAmount,
         'installments': installments,
         'payment_method_id': paymentMethodId,
-        // 'payment_type_id': paymentTypeId,
         'token': cardToken,
         'issuer_id': issuerId,
         'payer': {

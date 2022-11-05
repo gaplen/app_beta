@@ -136,6 +136,11 @@ openNextPAge(Product product){
     Navigator.pushNamed(context, 'client/orders/create');
   }
 
+
+   void goToNotification() {
+    Navigator.pushNamed(context, 'client/notification/create');
+  }
+
   void goToFavoritePets() {
     Navigator.pushNamed(context, 'client/products/favorite'); 
   }

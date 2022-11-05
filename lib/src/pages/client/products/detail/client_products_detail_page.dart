@@ -4,7 +4,6 @@ import 'package:app_beta/src/utils/my_colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
@@ -434,33 +433,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
           ],
         ),
         /* ICONO FAVORITOS */
-        Positioned(
-          top: 8,
-          right: MediaQuery.of(context).size.width * 0.1,
-          child: Material(
-              borderRadius: BorderRadius.circular(50),
-              elevation: 5,
-              child: liked == null
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Row(
-                      children: [
-                        Container(
-                          child: IconButton(
-                            onPressed: () {
-                              _persistPreference();
-                            _con.addFavorite();
-                            },
-                            icon: Icon(
-                              liked ? Icons.favorite : Icons.favorite_border,
-                              color: liked ? Colors.red : Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-        ),
+       
       ],
     );
   }
@@ -470,7 +443,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
       padding: EdgeInsets.only(top: 25),
       width: MediaQuery.of(context).size.width * 0.45,
       child: ElevatedButton(
-        onPressed: _con.goToNewAddress,
+        onPressed: _con.goToQuestion,
         // aqui va mandar al cuestionario
 
         style: ElevatedButton.styleFrom(
